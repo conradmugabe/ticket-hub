@@ -16,5 +16,5 @@ export const errorHandler = (
     errorMessage = err.serializeErrors();
   }
 
-  res.status(statusCode).send(errorMessage);
+  res.status(statusCode).send({ error: errorMessage });
 };
