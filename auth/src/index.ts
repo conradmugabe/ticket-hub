@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import 'express-async-errors';
+import mongoose from 'mongoose';
 
 import { currentUserRouter } from './routes/current-user';
 import { signInRouter } from './routes/signin';
@@ -24,6 +25,17 @@ app.all('*', async () => {
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
+const start = async () => {
+  try {
+    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
+    console.log('Connected to mongo database');
+  } catch (error) {
+    console.error(error);
+  }
+
+  app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+  });
+};
+
+start();
