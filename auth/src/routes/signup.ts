@@ -2,6 +2,9 @@ import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 
 import { RequestValidationError } from '../errors/request-validation-error';
+import { User } from '../models/user';
+import { BadRequestError } from '../errors/bad-request-error';
+import { Password } from '../services/password';
 
 const router = express.Router();
 
@@ -21,7 +24,18 @@ router.post(
     }
 
     const { email, password } = req.body;
-    return res.send('Hi there!');
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      console.log(`Email ${email} already in use`);
+      throw new BadRequestError('Email in use');
+    }
+
+    const hashedPassword = await Password.toHash(password);
+    const user = User.build({ email, password: hashedPassword });
+    await user.save();
+
+    return res.status(201).send(user);
   }
 );
 
