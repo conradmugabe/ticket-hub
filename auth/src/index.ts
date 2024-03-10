@@ -4,6 +4,7 @@ import 'express-async-errors';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
 
+import { checkEnvironmentVariables } from './utils/env';
 import { currentUserRouter } from './routes/current-user';
 import { signInRouter } from './routes/signin';
 import { signOutRouter } from './routes/signout';
@@ -29,6 +30,8 @@ app.all('*', async () => {
 app.use(errorHandler);
 
 const start = async () => {
+  checkEnvironmentVariables();
+
   try {
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
     console.log('Connected to mongo database');
