@@ -14,13 +14,13 @@ jobs:
     strategy:
       matrix:
         node-version: [18]
+    defaults:
+      run:
+        working-directory: ./auth
 
     steps:
-      - name: Checkout repository 🔔
+      - name: Checkout repository 🔔 in the auth directory 📂
         uses: actions/checkout@v4
-
-      - name: Switch to auth folder 📂
-        run: cd auth && ls
 
       - name: Setup pnpm 📦
         uses: pnpm/action-setup@v3
