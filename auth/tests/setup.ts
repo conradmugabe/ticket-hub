@@ -13,7 +13,8 @@ let startedContainer: StartedMongoDBContainer;
 beforeAll(async () => {
   startedContainer = await container.start();
 
-  await mongoose.connect(startedContainer.getConnectionString());
+  const connectionString = `${startedContainer.getConnectionString()}/test`;
+  await mongoose.connect(connectionString, { directConnection: true });
 }, sixtySeconds);
 
 beforeEach(async () => {
