@@ -25,7 +25,7 @@ jobs:
           version: 8
 
       - name: Switch to auth folder 📂
-        run: cd auth
+        run: cd auth && ls
 
       - name: Setup Node ${{ matrix.node-version }} ☊
         uses: actions/setup-node@v4
