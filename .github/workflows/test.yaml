@@ -1,0 +1,46 @@
+name: 'Testing 🧪'
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    branches-ignore:
+      - main
+
+jobs:
+  testing:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: [18]
+
+    steps:
+      - name: Checkout repository 🔔
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm 📦
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Setup Node ${{ matrix.node-version }} ☊
+        uses: actions/setup-node@v4
+        with:
+          node-version: '${{ matrix.node-version }}'
+          cache: 'pnpm'
+
+      - name: Switch to auth folder 📂
+        run: cd auth
+
+      - name: Install Dependencies ⚙️
+        run: pnpm install --frozen-lockfile
+
+      - name: Run All Tests 🧪
+        run: pnpm test:all:coverage
+
+      - name: Upload coverage reports to Codecov 📡 📈
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: conradmugabe/ticket-hub
