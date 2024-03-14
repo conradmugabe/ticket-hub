@@ -11,6 +11,8 @@ const container = new MongoDBContainer();
 let startedContainer: StartedMongoDBContainer;
 
 beforeAll(async () => {
+  process.env.JWT_KEY = 'TEST KEY';
+
   startedContainer = await container.start();
 
   const connectionString = `${startedContainer.getConnectionString()}/test`;
