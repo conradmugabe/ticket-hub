@@ -24,14 +24,15 @@ jobs:
         with:
           version: 8
 
+      - name: Switch to auth folder 📂
+        run: cd auth
+
       - name: Setup Node ${{ matrix.node-version }} ☊
         uses: actions/setup-node@v4
         with:
           node-version: '${{ matrix.node-version }}'
           cache: 'pnpm'
 
-      - name: Switch to auth folder 📂
-        run: cd auth
 
       - name: Install Dependencies ⚙️
         run: pnpm install --frozen-lockfile
