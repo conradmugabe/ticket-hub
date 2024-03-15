@@ -3,6 +3,7 @@ import request from 'supertest';
 
 import { app } from '../../src/app';
 import { signinHandler } from '../handlers';
+import { Ticket } from '../../src/models/tickets';
 
 const END_POINT = '/api/v1/tickets';
 
@@ -13,6 +14,7 @@ describe(`Test ${END_POINT}`, () => {
     notEqual?: boolean;
     requireAuth?: boolean;
     requestData?: { title?: string; price?: string };
+    isSaved?: boolean;
   }
 
   const testCases: TestCase[] = [
@@ -63,10 +65,19 @@ describe(`Test ${END_POINT}`, () => {
       expectedStatus: 201,
       requireAuth: true,
       requestData: { title: 'test', price: '10' },
+      isSaved: true,
     },
   ];
 
   test.each(testCases)('$name', async (testCase) => {
+    let tickets;
+
+    if (testCase.isSaved) {
+      tickets = await Ticket.find({});
+
+      expect(tickets.length).toEqual(0);
+    }
+
     const response = await request(app)
       .post(END_POINT)
       .set('Cookie', testCase.requireAuth ? signinHandler() : [])
@@ -76,6 +87,13 @@ describe(`Test ${END_POINT}`, () => {
       expect(response.status).not.toEqual(testCase.expectedStatus);
     } else {
       expect(response.status).toEqual(testCase.expectedStatus);
+    }
+
+    if (testCase.isSaved) {
+      tickets = await Ticket.find({});
+      expect(tickets.length).toEqual(1);
+      expect(tickets[0].title).toEqual(testCase.requestData?.title);
+      expect(tickets[0].price).toEqual(Number(testCase.requestData?.price));
     }
   });
 });

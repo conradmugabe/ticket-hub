@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { requireAuth, validateRequest } from '@mors_remorse/ticket-hub-common';
 
+import { Ticket } from '../models/tickets';
+
 const router = express.Router();
 
 router.post(
@@ -15,8 +17,16 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    console.log(req.body);
-    return res.status(201).send({});
+    const { title, price } = req.body;
+
+    const ticket = Ticket.build({
+      title,
+      price,
+      userId: req.currentUser!.id,
+    });
+    await ticket.save();
+
+    return res.status(201).send(ticket);
   }
 );
 
