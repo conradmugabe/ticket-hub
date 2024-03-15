@@ -10,6 +10,7 @@ import {
 
 import { createTicketRouter } from './routes/create';
 import { readOneRouter } from './routes/read-one';
+import { readManyRouter } from './routes/read-many';
 
 const app = express();
 app.set('trust proxy', true);
@@ -22,6 +23,7 @@ app.use(currentUser);
 
 app.use(createTicketRouter);
 app.use(readOneRouter);
+app.use(readManyRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();
