@@ -7,7 +7,7 @@ export const requireAuth = (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.session?.jwt) {
+  if (!req.currentUser) {
     throw new NotAuthorizedError();
   }
 
