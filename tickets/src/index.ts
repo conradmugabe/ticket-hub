@@ -5,7 +5,7 @@ import { app } from './app';
 
 const PORT = process.env.PORT || 8000;
 
-const ENV_VARIABLES = ['TICKETS_MONGO_URI', 'JWT_KEY'];
+const ENV_VARIABLES = ['MONGO_URI', 'JWT_KEY'];
 
 const start = async () => {
   checkEnvironmentVariables(ENV_VARIABLES);

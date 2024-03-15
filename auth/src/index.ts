@@ -5,13 +5,13 @@ import { app } from './app';
 
 const PORT = process.env.PORT || 8000;
 
-const ENV_VARIABLES = ['AUTH_MONGO_URI', 'JWT_KEY'];
+const ENV_VARIABLES = ['MONGO_URI', 'JWT_KEY'];
 
 const start = async () => {
   checkEnvironmentVariables(ENV_VARIABLES);
 
   try {
-    await mongoose.connect(process.env.AUTH_MONG_URI!);
+    await mongoose.connect(process.env.MONGO_URI!);
     console.log('Connected to mongo database');
   } catch (error) {
     console.error(error);
