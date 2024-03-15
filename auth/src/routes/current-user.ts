@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
+import { currentUser } from '@mors_remorse/ticket-hub-common';
 
-import { currentUser } from '../middleware/current-user';
 
 const router = express.Router();
 
