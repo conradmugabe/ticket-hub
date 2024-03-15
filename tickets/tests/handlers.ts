@@ -1,7 +1,10 @@
+import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
-export const signinHandler = () => {
-  const payload = { id: '1234567890', email: 'test@test.com' };
+export const signinHandler = (
+  userId = new mongoose.Types.ObjectId().toHexString()
+) => {
+  const payload = { id: userId, email: 'test@test.com' };
 
   const token = jwt.sign(payload, process.env.JWT_KEY!);
   const session = { jwt: token };
