@@ -10,7 +10,7 @@ spec:
     - host: tickethub.dev
       http:
         paths:
-          - path: /api/v1/users/?(.*)
+          - path: /api/v1/users/
             pathType: Prefix
             backend:
               service:
