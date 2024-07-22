@@ -8,6 +8,8 @@ import {
 } from '@mors_remorse/ticket-hub-common';
 
 import { Ticket } from '../models/tickets';
+import { natsClient } from '../nats-wrapper';
+import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
 
 const router = express.Router();
 
@@ -34,6 +36,13 @@ router.put(
     ticket.set('price', req.body.price);
     ticket.set('title', req.body.title);
     await ticket.save();
+
+    await new TicketUpdatedPublisher(natsClient.client).publish({
+      id: ticket.id,
+      price: ticket.price,
+      title: ticket.title,
+      userId: ticket.userId,
+    });
 
     return res.status(200).send(ticket);
   }
