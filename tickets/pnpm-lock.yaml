@@ -35,6 +35,9 @@ dependencies:
   mongoose:
     specifier: ^8.2.1
     version: 8.2.1
+  node-nats-streaming:
+    specifier: ^0.3.2
+    version: 0.3.2
 
 devDependencies:
   '@types/cookie-session':
