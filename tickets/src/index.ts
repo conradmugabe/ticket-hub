@@ -1,5 +1,3 @@
-import { randomBytes } from 'crypto';
-
 import mongoose from 'mongoose';
 import { checkEnvironmentVariables } from '@mors_remorse/ticket-hub-common';
 
@@ -8,15 +6,15 @@ import { natsClient } from './nats-wrapper';
 
 const PORT = process.env.PORT || 8000;
 
-const ENV_VARIABLES = ['MONGO_URI', 'JWT_KEY', 'CLUSTER_ID', 'NATS_URL'];
+const ENV_VARIABLES = ['MONGO_URI', 'JWT_KEY', 'NATS_CLUSTER_ID', 'NATS_CLIENT_ID', 'NATS_URL'];
 
 const start = async () => {
   checkEnvironmentVariables(ENV_VARIABLES);
 
   try {
     await natsClient.connect(
-      process.env.CLUSTER_ID!,
-      randomBytes(4).toString('hex'),
+      process.env.NATS_CLUSTER_ID!,
+      process.env.NATS_CLIENT_ID!,
       process.env.NATS_URL!
     );
     natsClient.client.on('close', () => {
