@@ -1,3 +1,5 @@
+import { randomBytes } from 'crypto';
+
 import { afterAll, beforeAll, beforeEach } from 'vitest';
 import {
   MongoDBContainer,
@@ -53,7 +55,11 @@ beforeAll(async () => {
   const nats_host = startedNatsContainer.getHost();
   const nats_port = startedNatsContainer.getMappedPort(nats_client_port);
   const nats_url = `http://${nats_host}:${nats_port}`;
-  await natsClient.connect(cluster_id, 'test', nats_url);
+  await natsClient.connect(
+    cluster_id,
+    randomBytes(4).toString('hex'),
+    nats_url
+  );
 
   const connectionString = `${startedMongoDBContainer.getConnectionString()}/test`;
   await mongoose.connect(connectionString, { directConnection: true });
