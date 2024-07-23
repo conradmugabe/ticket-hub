@@ -17,3 +17,11 @@ spec:
                 name: auth-srv
                 port:
                   number: 8000
+          - path: /api/v1/tickets/
+            pathType: Prefix
+            backend:
+              service:
+                name: tickets-srv
+                port:
+                  number: 8000
+              
