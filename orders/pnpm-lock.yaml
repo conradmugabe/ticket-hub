@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@mors_remorse/ticket-hub-common':
-    specifier: 0.0.8
-    version: 0.0.8
+    specifier: 0.0.9
+    version: 0.0.9
   async:
     specifier: ^3.2.5
     version: 3.2.5
@@ -553,8 +553,8 @@ packages:
       sparse-bitfield: 3.0.3
     dev: false
 
-  /@mors_remorse/ticket-hub-common@0.0.8:
-    resolution: {integrity: sha512-IO22lQwu4Baj6o4wpgAFtxVvE6i+ZxqiPGGOkrV7UDmIeLWG0zioGE++CIAcKlKOy/RevUcvJ/MDqpEBiV7oCQ==}
+  /@mors_remorse/ticket-hub-common@0.0.9:
+    resolution: {integrity: sha512-/bcqpD9BEeEOKrL0w+/bFnhBKRcBD8B0bOgkg4M63eRUt682vYuj1BYYs8j+9N1CXVjwdE+bCz97hvVgZP1D8Q==}
     dependencies:
       express: 4.18.3
       express-validator: 7.0.1
