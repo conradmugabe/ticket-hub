@@ -4,6 +4,7 @@ import { OrderStatus } from '@mors_remorse/ticket-hub-common';
 import { Order } from './order';
 
 interface TicketAttrs {
+  id: string;
   title: string;
   price: number;
 }
@@ -36,7 +37,7 @@ const ticketSchema = new mongoose.Schema(
 );
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
-  return new Ticket(attrs);
+  return new Ticket({ ...attrs, _id: attrs.id });
 };
 
 ticketSchema.methods.isReserved = async function () {
