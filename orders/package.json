@@ -24,7 +24,7 @@
     "vitest": "^1.4.0"
   },
   "dependencies": {
-    "@mors_remorse/ticket-hub-common": "0.0.9",
+    "@mors_remorse/ticket-hub-common": "0.0.10",
     "async": "^3.2.5",
     "cookie-session": "^2.1.0",
     "dotenv": "^16.4.5",
